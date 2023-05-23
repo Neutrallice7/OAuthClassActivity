@@ -1,6 +1,6 @@
 # OAuthClassActivity </br>
 
-This is a group activity for Web Application and Security class L4BC at Week 11. The practice is aimed to teach students on how to utilize OAuth2. </br>
+This is a group activity for Web Application and Security class L4BC at Week 11. The practice is aimed to teach students on how to utilize OAuth2, including the integration of frontend and backend. </br>
 
 ## Group Members </br>
 
