@@ -53,4 +53,6 @@ async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_
     return user
 
 #Start server
-uvicorn.run(app,host = "0.0.0.0", port = 8000)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
