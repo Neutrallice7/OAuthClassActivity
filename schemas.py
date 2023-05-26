@@ -5,7 +5,7 @@ class userBase(_pydantic.BaseModel):
     email: str
 
 class userCreate(userBase):
-    hashed_password :str
+    hashed_password: str
 
     class Config:
         orm_mode = True

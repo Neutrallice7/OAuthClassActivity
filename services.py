@@ -4,17 +4,19 @@ import jwt as _jwt
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
 
-import database as _database, models as _models, schemas as _schemas
+import database as _database
+import models as _models
+import schemas as _schemas
 
-oauth2scheme = _security.OAuth2PasswordBearer(tokenUrl="/api/token")
+oauth2scheme = _security.OAuth2PasswordBearer(tokenUrl = "/api/token")
 
 JWT_SECRET = "mochicheriecimolmomo"
 
 def create_database():
-    return _database.Base.metadata.create_all(bind=_database.engine)
+    return _database.Base.metadata.create_all(bind = _database.engine)
 
 def get_db():
-    db =_database.SessionLocal()
+    db = _database.SessionLocal()
     try:
         yield db
     finally:
@@ -36,7 +38,7 @@ async def get_user_by_email(email: str, db: _orm.Session):
     return db.query(_models.User).filter(_models.User.email == email).first()
 
 async def authenticate_user(email: str, password: str, db: _orm.Session):
-    user = await get_user_by_email(db=db, email=email)
+    user = await get_user_by_email(db = db, email = email)
  
     if not user:
         return False
@@ -49,7 +51,7 @@ async def create_token(user: _models.User):
 
     token = _jwt.encode(user_obj.dict(), JWT_SECRET)
 
-    return dict(access_token = token, token_type="bearer")
+    return dict(access_token = token, token_type = "bearer")
 
 async def get_current_user(
     db: _orm.Session = _fastapi.Depends(get_db),
@@ -60,7 +62,7 @@ async def get_current_user(
         user = db.query(_models.User).get(payload["id"])
     except:
         raise _fastapi.HTTPException(
-            status_code=401, detail="Invalid Email or Password"
+            status_code = 401, detail = "Invalid Email or Password"
         )
  
     return _schemas.User.from_orm(user)

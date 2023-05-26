@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import bcrypt from "bcryptjs";
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,26 +24,26 @@ const Login = () => {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit = {handleLogin}>
         <label>
           Username
           <input
-            type='text'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type = 'text'
+            value = {username}
+            onChange = {(e) => setUsername(e.target.value)}
           />
         </label>
         <br />
         <label>
           Password
           <input
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type = 'password'
+            value = {password}
+            onChange = {(e) => setPassword(e.target.value)}
           />
         </label>
         <br />
-        <button type='submit'>Login</button>
+        <button type = 'submit'>Login</button>
       </form>
     </div>
   );
