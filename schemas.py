@@ -1,7 +1,7 @@
 import datetime as _dt
 import pydantic as _pydantic
 
-class userBase(_pydantic.Basemodel):
+class userBase(_pydantic.BaseModel):
     email: str
 
 class userCreate(userBase):
