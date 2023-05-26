@@ -6,7 +6,20 @@ import sqlalchemy.orm as _orm
 import services as _services
 import schemas as _schemas
 
+from fastapi.middleware.cors import CORSMiddleware
+
+import uvicorn
+
 app = _fastapi.FastAPI()
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Replace with your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # POST request that creates a new user.
 @app.post("/api/users")
@@ -38,3 +51,6 @@ async def generate_token(
 @app.get("/api/users/myprofile", response_model=_schemas.User)
 async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
     return user
+
+#Start server
+uvicorn.run(app,host = "0.0.0.0", port = 8000)
