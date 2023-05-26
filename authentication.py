@@ -111,22 +111,33 @@ async def get_current_active_user(current_user:UserInDB=Depends(get_current_user
 
     return current_user
 
+# POST requests to the /token endpoint.
 @app.post("/token",response_model=Token)
 async def login_for_access_token(form_data:OAuth2PasswordRequestForm=Depends()):
+    #  Check if the credentials are valid.
     user=authenticate_user(db,form_data.username,form_data.password)
+    # If credential is invalid shows HTTPException with a 401 status code.
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="incorrect username or password",headers={"WWW-authenticate":"bearer"})
     
+    # Calculate the expiration time for the token.
     access_token_expires=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    # Creates new access token with the expiration time.
     access_token=create_access_token(data={"sub":user.username},expires_delta=access_token_expires)
+    # Returns JSON response containing the access token.
     return{"access_token":access_token,"token_type":"bearer"}
 
+# GET requests to the /users/me endpoint.
 @app.get("/users/me",response_model=User)
+# Returns current user.
 async def read_users_me(current_user:User=Depends(get_current_active_user)):
     return current_user
 
+# GET requests to the /users/me/items endpoint.
 @app.get("/users/me/items",response_model=User)
+# Takes current_user using get_current_active_user depdency
 async def read_own_items(current_user:User=Depends(get_current_active_user)):
+    # Returns a list containing a single dictionary representing an item.
     return [{"item_id":1,"owner":current_user}]
 
 #Start server

@@ -8,7 +8,7 @@ import schemas as _schemas
 
 app = _fastapi.FastAPI()
 
-
+# POST request that creates a new user.
 @app.post("/api/users")
 async def create_user(
     user: _schemas.UserCreate, db: _orm.Session = _fastapi.Depends(_services.get_db)
@@ -21,6 +21,7 @@ async def create_user(
 
     return await _services.create_token(user)
 
+# POST request that generates a token for an existing user. 
 @app.post("/api/token")
 async def generate_token(
     form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(),
@@ -32,7 +33,8 @@ async def generate_token(
         raise _fastapi.HTTPException(status_code=401, detail="Invalid Credentials")
  
     return await _services.create_token(user)
-    
+
+# GET request that retrieves the profile of the currently authenticated user.
 @app.get("/api/users/myprofile", response_model=_schemas.User)
 async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
     return user
