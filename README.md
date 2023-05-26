@@ -4,11 +4,11 @@ This is a group activity for Web Application and Security class L4BC at Week 11.
 
 ## Group Members </br>
 
-ARVIN YUWONO/2502009721: Frontend</br>
+ARVIN YUWONO/2502009721</br>
 IAN WIRAWAN/2502009596</br>
-KEVIN MATTHEW TANUWIJAYA/2502036514: OAuth2</br>
+KEVIN MATTHEW TANUWIJAYA/2502036514</br>
 SULTHAN SYUZA PRABOWO/2502020075</br>
-CARMEN CLEOSA/2502009601: Database</br>
+CARMEN CLEOSA/2502009601</br>
 
 ## Requirements</br>
 
