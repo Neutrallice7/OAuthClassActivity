@@ -16,16 +16,20 @@ Python 3.10+</br>
 
 ## Libraries used</br>
 Python: </br>
-fastapi</br>
-pydantic</br>
-jose</br>
-passlib</br>
-sqlalechmy</br>
-jwt</br>
-datetime</br>
+- fastapi
+- pydantic
+- jose
+- passlib
+- sqlalechmy
+- jwt
+- datetime <br>
 
 Javascript:</br>
 Everything is located in package.json, install using npm.</br>
+main packages used: <br>
+- React
+- axios
+- bcrypt
 
 
 
