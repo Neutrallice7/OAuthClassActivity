@@ -13,3 +13,22 @@ CARMEN CLEOSA/2502009601</br>
 ## Requirements</br>
 
 Python 3.10+</br>
+
+## Libraries used</br>
+Python: </br>
+fastapi</br>
+pydantic</br>
+jose</br>
+passlib</br>
+sqlalechmy</br>
+jwt</br>
+datetime</br>
+
+Javascript:</br>
+Everything is located in package.json, install using npm.</br>
+
+
+
+
+
+
