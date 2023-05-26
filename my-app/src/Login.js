@@ -1,21 +1,31 @@
 import React, { useState } from "react";
-import axios from "axios";
-import bcrypt from "bcryptjs";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
-    e.preventDefault(); //Disable the default submission behavior
+    e.preventDefault(); // Disable the default submission behavior
+
     try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const response = await axios.post("http://localhost:8000/token", {
-        username: username,
-        password: hashedPassword,
+      const response = await fetch("http://localhost:8000/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
       });
-      const { access_token } = response.data;
-      console.log("Login successful");
+
+      if (response.ok) {
+        const data = await response.json();
+        const { access_token } = data;
+        console.log("Login successful");
+      } else {
+        console.log("Login failed");
+      }
     } catch (error) {
       console.log("Login failed");
     }
@@ -24,26 +34,26 @@ const Login = () => {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit = {handleLogin}>
+      <form onSubmit={handleLogin}>
         <label>
           Username
           <input
-            type = 'text'
-            value = {username}
-            onChange = {(e) => setUsername(e.target.value)}
+            type='text'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </label>
         <br />
         <label>
           Password
           <input
-            type = 'password'
-            value = {password}
-            onChange = {(e) => setPassword(e.target.value)}
+            type='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <br />
-        <button type = 'submit'>Login</button>
+        <button type='submit'>Login</button>
       </form>
     </div>
   );
