@@ -8,7 +8,7 @@ const Login = () => {
     e.preventDefault(); // Disable the default submission behavior
 
     try {
-      const response = await fetch("http://localhost:8000/token", {
+      const response = await fetch("http://localhost:8000/api/token", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
