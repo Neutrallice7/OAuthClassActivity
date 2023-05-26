@@ -6,6 +6,7 @@ from jose import JWTError,jwt
 from passlib.context import CryptContext
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware 
+from typing import Optional
 
 
 SECRET_KEY="83daa0256a2289b0fb23693bf1f6034d44396675749244721a2b20e896e11662"
@@ -44,8 +45,8 @@ class TokenData(BaseModel):
 
 class User(BaseModel):
     username:str
-    email:str or None=None
-    full_name:str or None=None
+    email: Optional[str] = None
+    full_name: Optional[str] = None
     disabled:bool or None=None
 
 class UserInDB(User):
@@ -59,7 +60,7 @@ def verify_password(plain_password,hashed_password):
     return pwd_context.verify(plain_password,hashed_password)
 
 def get_password_hashed(password):
-    return pwd_context.hash(password)
+    return pwd_context.hash(password.get_secret_value())
 
 def get_user(db,username:str):
     if username in db:
