@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setUsername] = useState("");
+  const [hashed_password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Disable the default submission behavior
@@ -14,8 +14,8 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: username,
-          password: password,
+          email: email,
+          hashed_password: hashed_password,
         }),
       });
 
@@ -36,10 +36,10 @@ const Login = () => {
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <label>
-          Username
+          eMAIL
           <input
             type='text'
-            value={username}
+            value={email}
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
@@ -47,8 +47,8 @@ const Login = () => {
         <label>
           Password
           <input
-            type='password'
-            value={password}
+            type='hashed_password'
+            value={hashed_password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
