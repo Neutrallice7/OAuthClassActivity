@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import bcrypt from "bcryptjs";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault(); //Disable the default submission behavior
     try {
-      const response = await axios.post("/token", {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const response = await axios.post("http://localhost:8000/token", {
         username: username,
-        password: password,
+        password: hashedPassword,
       });
       const { access_token } = response.data;
       console.log("Login successful");

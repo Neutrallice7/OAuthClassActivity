@@ -4,12 +4,25 @@ from pydantic import BaseModel
 from datetime import datetime,timedelta
 from jose import JWTError,jwt
 from passlib.context import CryptContext
+import uvicorn
+from fastapi.middleware.cors import CORSMiddleware 
+import bcrypt
 
 SECRET_KEY="83daa0256a2289b0fb23693bf1f6034d44396675749244721a2b20e896e11662"
 ALGORITHM="HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 app=FastAPI()
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Replace with your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 #need to connect to a database
 db={
@@ -115,3 +128,6 @@ async def read_users_me(current_user:User=Depends(get_current_active_user)):
 @app.get("/users/me/items",response_model=User)
 async def read_own_items(current_user:User=Depends(get_current_active_user)):
     return [{"item_id":1,"owner":current_user}]
+
+#Start server
+uvicorn.run(app,host="0.0.0.0",port=8000)
